@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="phonecatApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="angular.js"></script>
+	<script src="js/controllers.js"></script>
+	<style type="text/css">
+		form input.ng-invalid {
+  			color: red;
+		}
+		form input.ng-valid {
+  			color: green;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container-fluid" ng-controller="PhoneListCtrl">
+  <div class="row">
+    <div class="col-md-2">
+      <!--Sidebar content-->
+
+      Search: <input search ng-model="searchFilter" v="{{searchFilter}}">
+
+      Sort by:
+		<select ng-model="orderProp">
+		  <option value="name">Alphabetical</option>
+		  <option value="age">Newest</option>
+		</select>
+
+    </div>
+
+    <div class="col-md-10">
+      <!--Body content-->
+
+	  <p ng-show="searchFilter">Filtered by {{searchFilter}}</p>
+      <ul class="phones">
+        <li ng-repeat="phone in phones | filter:searchFilter | orderBy:orderProp">
+          {{phone.name}} <button ng-click="edit(phone)">Edit</button>
+          <p>{{phone.snippet}}</p>
+        </li>
+      </ul>
+
+      <div class="edit" ng-show="editing">
+      	<h4>Editing</h4>
+      	<label>
+      		Phone Name
+      		<input type="text" ng-model="editing.name" />
+      	</label>	
+      </div>
+      <label>
+      
+    </div>
+  
+
+
+	<input set-val="{{searchFilter}}" ng-model="directive.input" />
+	</br>
+	<input type="text" ng-model="directive.input" />
+
+
+	  <pre ng-bind="phones | json"></pre>
+
+		<div>
+			<label>with: hallo directive<input type="text" hallo ng-model="hallo"></label>
+			<label>without: hallo directive<input type="text" ng-model="hallo"></label>
+		</div>
+	  <pre ng-bind="hallo | json"></pre>
+
+  </div>
+
+
+
+  <!--</br><hr></br>
+  <div id="formValidation" ng-controller="surveyCtrl">
+  	<form name="myForm">
+  		<label>
+  			Username: 
+  			<input type="text" name="username" unique-check ng-model="user.username"/>
+  		</label>
+  		<label>
+  			Password
+  			<input type="password" name="password" ng-model="user.password"/>
+  		</label>
+  		<button type="submit" ng-disabled="myForm.$invalid">Send</button>
+  	</form>
+  	<pre ng-bind="user | json"></pre>
+  </div>
+</div>-->
+
+
+</br><hr></br>
+<div ng-controller="stageCtrl">
+	<div ng-switch="step">
+		<div ng-switch-when="1" ng-controller="surveyCtrlOne">
+			<h4>First Step</h4>
+			<form name="myForm">
+		  		<label>
+		  			Username: 
+		  			<input type="text" name="username" unique-check ng-model="user.username"/>
+		  		</label>
+		  		<label>
+		  			Password
+		  			<input type="password" name="password" ng-model="user.password"/>
+		  		</label>
+		  		<button type="button" ng-click="next()" ng-disabled="myForm.$invalid">Next</button>
+		  	</form>
+		  	<pre ng-bind="user | json"></pre>
+		</div>
+
+		<div ng-switch-when="2" ng-controller="surveyCtrlTwo">
+			<h4>Secound Step</h4>
+			<p>You are: {{user.username}}</p>
+			<pre ng-bind="user | json"></pre>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
